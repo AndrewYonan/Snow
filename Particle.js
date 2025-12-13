@@ -8,7 +8,7 @@ class Particle {
         this.pos = new Vector2(x, y);
         this.vel = new Vector2(0,0);
         this.accel = this.rand_accel();
-        this.radius = randint(1,5);
+        this.radius = randint(1,3);
         this.wind_speed = 10;
         this.wind = new Vector2(-this.wind_speed, this.wind_speed/2);
         this.off_screen_margin = 50;
@@ -18,7 +18,7 @@ class Particle {
         this.turn_interval = 10;
         this.turn_timer = 0;
 
-        this.color = "rgb(61, 61, 61)";
+        this.color = "rgb(141, 141, 141)";
 
 
     }
