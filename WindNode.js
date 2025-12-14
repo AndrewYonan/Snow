@@ -1,11 +1,11 @@
 class WindNode {
-    constructor(x, y, radius) {
+    constructor(x, y, radius, preference_dir) {
         this.damp = 10;
         this.radius = radius;
         this.pos = new Vector2(x, y);
         this.vel = new Vector2(0,0);
         this.accel = this.rand_accel();
-        this.preference_dir = new Vector2(-5,0);
+        this.preference_dir = preference_dir;
 
         this.turn_interval = 100;
         this.turn_timer = 0;

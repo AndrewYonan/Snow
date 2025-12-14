@@ -1,5 +1,5 @@
 const canvas = document.getElementById("canvas");
-const BG_MAIN_COLOR = "rgb(233, 233, 233)";
+const BG_MAIN_COLOR = "rgb(48, 59, 102)";
 const W = 1400;
 const H = 800;
 const ctx = build_canvas(canvas, adaptive_res=true);
@@ -13,8 +13,9 @@ let FRAME = 0;
 let particles = [];
 let wind_nodes = [];
 let particle_spawn_rate = 2;
-let wind_node_spawn_rate = 10;
+let wind_node_spawn_rate = 15;
 let cur_time = 0;
+let PAUSED = false;
 
 
 function randint(a, b) {
@@ -30,7 +31,12 @@ function spawn_particles(n) {
 
 
 function spawn_wind_node() {
-    wind_nodes.push(new WindNode(randint(W, W + 100), randint(0, H), randint(75, 300)));
+    if (Math.random() < 0.5) {
+        wind_nodes.push(new WindNode(randint(W, W + 100), randint(0, H), randint(75, 300), new Vector2(-5,0)));
+    }
+    else {
+        wind_nodes.push(new WindNode(randint(-100, 0), randint(0, H), randint(75, 300), new Vector2(5,0)));
+    }
 }
 
 
@@ -41,6 +47,8 @@ function frame() {
     draw_stats();
     draw_particles();
     // draw_wind_nodes();
+
+    if (PAUSED) return; 
 
     update_particles();
     update_wind_nodes();
@@ -88,7 +96,7 @@ function update_particles() {
                 }
             }
 
-            if (wind_node) particles[i].accel = wind_node.vel.div(150);
+            if (wind_node) particles[i].accel = wind_node.vel.div(35);
         }
     }   
 }
@@ -117,7 +125,7 @@ function update_wind_nodes() {
 
 
 function draw_stats() {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.font = "20px 'Times New Roman'";
     ctx.fillText(`Snow : ${particles.length}`, 100, 100);
     ctx.fillText(`Wind Nodes : ${wind_nodes.length}`, 100, 130);
